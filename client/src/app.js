@@ -8,6 +8,7 @@ import Vasche from "./pages/Vasche";
 import Lotti from "./pages/Lotti";
 import Analisi from "./pages/Analisi";
 import Imbottigliamenti from "./pages/Imbottigliamenti";
+import Tracciabilita from "./pages/Tracciabilita";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/lotti" element={<Lotti />} />
             <Route path="/analisi" element={<Analisi />} />
             <Route path="/imbottigliamenti" element={<Imbottigliamenti />} />
+            <Route path="/tracciabilita" element={<Tracciabilita />} />
           </Routes>
         </main>
       </div>
