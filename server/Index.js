@@ -39,7 +39,10 @@ app.get("/api/test-db", async (req, res) => {
   }
 });
 
-// --- API VASCHE (lettura vasche) ---
+
+// =============================================================
+// ========================= API VASCHE ========================
+// =============================================================
 app.get("/api/vasche", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM vasche ORDER BY id ASC");
@@ -50,7 +53,10 @@ app.get("/api/vasche", async (req, res) => {
   }
 });
 
-// --- API LOTTI (lettura lotti con JOIN vasche) ---
+
+// =============================================================
+// ========================== API LOTTI ========================
+// =============================================================
 app.get("/api/lotti", async (req, res) => {
   try {
     const result = await pool.query(`
@@ -67,7 +73,10 @@ app.get("/api/lotti", async (req, res) => {
   }
 });
 
-// --- API ANALISI (lettura analisi) ---
+
+// =============================================================
+// ========================= API ANALISI =======================
+// =============================================================
 app.get("/api/analisi", async (req, res) => {
   try {
     const query = `
@@ -84,7 +93,10 @@ app.get("/api/analisi", async (req, res) => {
   }
 });
 
-// --- API IMBOTTIGLIAMENTI (lettura imbottigliamenti) ---
+
+// =============================================================
+// ================= API IMBOTTIGLIAMENTI ======================
+// =============================================================
 app.get("/api/imbottigliamenti", async (req, res) => {
   try {
     const query = `
@@ -100,6 +112,48 @@ app.get("/api/imbottigliamenti", async (req, res) => {
     res.status(500).json({ error: "Errore nel recupero degli imbottigliamenti" });
   }
 });
+
+
+// =============================================================
+// ========================= API EVENTI ========================
+// =============================================================
+
+/*
+ EVENTI DI CANTINA — STRUTTURA
+ tipo_evento: "Riempimento", "Travaso", "Analisi", "Imbottigliamento", ecc.
+ descrizione: testuale
+ data_evento: timestamp
+ collegamenti:
+    vasca_id, lotto_id, analisi_id, imbottigliamento_id
+ volume_coinvolto: numero
+ note: testo libero
+*/
+
+// GET — tutti gli eventi
+app.get("/api/eventi", async (req, res) => {
+  try {
+    const query = `
+      SELECT e.*,
+             v.codice AS vasca_codice,
+             l.codice AS lotto_codice,
+             a.id     AS analisi_rif,
+             i.id     AS imb_rif
+      FROM eventi_cantina e
+      LEFT JOIN vasche v ON e.vasca_id = v.id
+      LEFT JOIN lotti l ON e.lotto_id = l.id
+      LEFT JOIN analisi a ON e.analisi_id = a.id
+      LEFT JOIN imbottigliamenti i ON e.imbottigliamento_id = i.id
+      ORDER BY e.data_evento DESC, e.id DESC
+    `;
+    
+    const result = await pool.query(query);
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Errore eventi:", error);
+    res.status(500).json({ error: "Errore nel recupero degli eventi di cantina" });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server VineTrack avviato sulla porta ${PORT}`);
