@@ -207,3 +207,10 @@
   font-size: .8rem;
   opacity: .7;
 }
+/* MAPPA CANTINA */
+.cantina-map {
+  margin-top: 1rem;
+  background: #0f172a;
+  padding: 1rem;
+  border-radius: 10px;
+}
