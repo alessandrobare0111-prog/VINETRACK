@@ -3,17 +3,17 @@ import cors from "cors";
 import pg from "pg";
 import dotenv from "dotenv";
 
-// Carica le variabili dal file .env
+// Carica variabili dal file .env
 dotenv.config();
 
 const { Pool } = pg;
 
-// Connessione al database PostgreSQL (Supabase)
+// Connessione a PostgreSQL (Supabase)
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
   ssl: {
-    rejectUnauthorized: false
-  }
+    rejectUnauthorized: false,
+  },
 });
 
 const app = express();
@@ -23,7 +23,7 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
-// Test semplice API
+// Test API semplice
 app.get("/", (req, res) => {
   res.send("VineTrack backend attivo!");
 });
@@ -39,7 +39,7 @@ app.get("/api/test-db", async (req, res) => {
   }
 });
 
-// --- API VASCHE (legge le vasche dal database) ---
+// --- API VASCHE (lettura vasche) ---
 app.get("/api/vasche", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM vasche ORDER BY id ASC");
@@ -47,6 +47,23 @@ app.get("/api/vasche", async (req, res) => {
   } catch (error) {
     console.error("Errore vasche:", error);
     res.status(500).json({ error: "Errore nel recupero delle vasche" });
+  }
+});
+
+// --- API LOTTI (lettura lotti con JOIN vasche) ---
+app.get("/api/lotti", async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT l.*, v.codice AS vasca_codice
+      FROM lotti l
+      LEFT JOIN vasche v ON l.vasca_id = v.id
+      ORDER BY l.id ASC
+    `);
+
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Errore lotti:", error);
+    res.status(500).json({ error: "Errore nel recupero dei lotti" });
   }
 });
 
