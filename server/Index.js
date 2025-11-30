@@ -67,6 +67,23 @@ app.get("/api/lotti", async (req, res) => {
   }
 });
 
+// --- API ANALISI (lettura analisi, FASE 3 COMPLETA) ---
+app.get("/api/analisi", async (req, res) => {
+  try {
+    const query = `
+      SELECT a.*, l.codice AS lotto_codice
+      FROM analisi a
+      JOIN lotti l ON a.lotto_id = l.id
+      ORDER BY a.id DESC
+    `;
+    const result = await pool.query(query);
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Errore analisi:", error);
+    res.status(500).json({ error: "Errore nel recupero delle analisi" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server VineTrack avviato sulla porta ${PORT}`);
 });
