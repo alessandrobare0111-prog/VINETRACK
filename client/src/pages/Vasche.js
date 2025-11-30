@@ -2,7 +2,7 @@ import VascaCard from "../components/VascaCard";
 
 function Vasche() {
   return (
-    <div className="vasche-page">
+    <div className="vasche-page page">
       <h2>Vasche</h2>
       <p>Situazione attuale delle vasche in cantina</p>
 
