@@ -11,6 +11,7 @@ import Imbottigliamenti from "./pages/Imbottigliamenti";
 import Tracciabilita from "./pages/Tracciabilita";
 import MappaCantina from "./pages/MappaCantina";
 import MappaVigneto from "./pages/MappaVigneto";
+import Trattamenti from "./pages/Trattamenti";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -32,6 +33,7 @@ function App() {
             <Route path="/tracciabilita" element={<Tracciabilita />} />
             <Route path="/mappa-cantina" element={<MappaCantina />} />
             <Route path="/mappa-vigneto" element={<MappaVigneto />} />
+            <Route path="/trattamenti" element={<Trattamenti />} />
           </Routes>
         </main>
       </div>
