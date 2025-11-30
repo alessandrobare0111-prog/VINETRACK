@@ -23,12 +23,13 @@ const PORT = 5000;
 app.use(cors());
 app.use(express.json());
 
-// Test API semplice
+// =============================================================
+// =========================== TEST ============================
+// =============================================================
 app.get("/", (req, res) => {
   res.send("VineTrack backend attivo!");
 });
 
-// Test connessione DB
 app.get("/api/test-db", async (req, res) => {
   try {
     const result = await pool.query("SELECT NOW()");
@@ -38,7 +39,6 @@ app.get("/api/test-db", async (req, res) => {
     res.status(500).json({ error: "Errore connessione database" });
   }
 });
-
 
 // =============================================================
 // ========================= API VASCHE ========================
@@ -53,7 +53,6 @@ app.get("/api/vasche", async (req, res) => {
   }
 });
 
-
 // =============================================================
 // ========================== API LOTTI ========================
 // =============================================================
@@ -65,14 +64,12 @@ app.get("/api/lotti", async (req, res) => {
       LEFT JOIN vasche v ON l.vasca_id = v.id
       ORDER BY l.id ASC
     `);
-
     res.json(result.rows);
   } catch (error) {
     console.error("Errore lotti:", error);
     res.status(500).json({ error: "Errore nel recupero dei lotti" });
   }
 });
-
 
 // =============================================================
 // ========================= API ANALISI =======================
@@ -93,7 +90,6 @@ app.get("/api/analisi", async (req, res) => {
   }
 });
 
-
 // =============================================================
 // ================= API IMBOTTIGLIAMENTI ======================
 // =============================================================
@@ -113,23 +109,10 @@ app.get("/api/imbottigliamenti", async (req, res) => {
   }
 });
 
-
 // =============================================================
 // ========================= API EVENTI ========================
 // =============================================================
 
-/*
- EVENTI DI CANTINA — STRUTTURA
- tipo_evento: "Riempimento", "Travaso", "Analisi", "Imbottigliamento", ecc.
- descrizione: testuale
- data_evento: timestamp
- collegamenti:
-    vasca_id, lotto_id, analisi_id, imbottigliamento_id
- volume_coinvolto: numero
- note: testo libero
-*/
-
-// GET — tutti gli eventi
 app.get("/api/eventi", async (req, res) => {
   try {
     const query = `
@@ -154,7 +137,45 @@ app.get("/api/eventi", async (req, res) => {
   }
 });
 
+// =============================================================
+// ========================= API VIGNETI =======================
+// =============================================================
 
+// GET — tutti i vigneti
+app.get("/api/vigneti", async (req, res) => {
+  try {
+    const result = await pool.query("SELECT * FROM vigneti ORDER BY id ASC");
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Errore vigneti:", error);
+    res.status(500).json({ error: "Errore nel recupero dei vigneti" });
+  }
+});
+
+// =============================================================
+// ========================= API PARCELLE ======================
+// =============================================================
+
+// GET — tutte le parcelle
+app.get("/api/parcelle", async (req, res) => {
+  try {
+    const query = `
+      SELECT p.*, v.nome AS vigneto_nome
+      FROM parcelle p
+      JOIN vigneti v ON p.vigneto_id = v.id
+      ORDER BY p.id ASC
+    `;
+    const result = await pool.query(query);
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Errore parcelle:", error);
+    res.status(500).json({ error: "Errore nel recupero delle parcelle" });
+  }
+});
+
+// =============================================================
+// ========================= SERVER START ======================
+// =============================================================
 app.listen(PORT, () => {
   console.log(`Server VineTrack avviato sulla porta ${PORT}`);
 });
