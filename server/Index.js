@@ -3,7 +3,7 @@ import cors from "cors";
 import pg from "pg";
 import dotenv from "dotenv";
 
-// Carica variabili dal file .env
+// Carica variabili ambiente (.env)
 dotenv.config();
 
 const { Pool } = pg;
@@ -11,9 +11,7 @@ const { Pool } = pg;
 // Connessione a PostgreSQL (Supabase)
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
-  ssl: {
-    rejectUnauthorized: false,
-  },
+  ssl: { rejectUnauthorized: false }
 });
 
 const app = express();
@@ -22,6 +20,7 @@ const PORT = 5000;
 // Middleware
 app.use(cors());
 app.use(express.json());
+
 
 // =============================================================
 // =========================== TEST ============================
@@ -34,88 +33,94 @@ app.get("/api/test-db", async (req, res) => {
   try {
     const result = await pool.query("SELECT NOW()");
     res.json({ status: "ok", time: result.rows[0].now });
-  } catch (error) {
-    console.error("Errore DB:", error);
+  } catch (err) {
+    console.error("❌ Errore DB:", err);
     res.status(500).json({ error: "Errore connessione database" });
   }
 });
+
 
 // =============================================================
 // ========================= API VASCHE ========================
 // =============================================================
 app.get("/api/vasche", async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM vasche ORDER BY id ASC");
+    const q = "SELECT * FROM vasche ORDER BY id ASC";
+    const result = await pool.query(q);
     res.json(result.rows);
-  } catch (error) {
-    console.error("Errore vasche:", error);
+  } catch (err) {
+    console.error("❌ Errore VASCHE:", err);
     res.status(500).json({ error: "Errore nel recupero delle vasche" });
   }
 });
+
 
 // =============================================================
 // ========================== API LOTTI ========================
 // =============================================================
 app.get("/api/lotti", async (req, res) => {
   try {
-    const result = await pool.query(`
+    const q = `
       SELECT l.*, v.codice AS vasca_codice
       FROM lotti l
       LEFT JOIN vasche v ON l.vasca_id = v.id
       ORDER BY l.id ASC
-    `);
+    `;
+    const result = await pool.query(q);
     res.json(result.rows);
-  } catch (error) {
-    console.error("Errore lotti:", error);
+  } catch (err) {
+    console.error("❌ Errore LOTTI:", err);
     res.status(500).json({ error: "Errore nel recupero dei lotti" });
   }
 });
+
 
 // =============================================================
 // ========================= API ANALISI =======================
 // =============================================================
 app.get("/api/analisi", async (req, res) => {
   try {
-    const query = `
+    const q = `
       SELECT a.*, l.codice AS lotto_codice
       FROM analisi a
       JOIN lotti l ON a.lotto_id = l.id
       ORDER BY a.id DESC
     `;
-    const result = await pool.query(query);
+    const result = await pool.query(q);
     res.json(result.rows);
-  } catch (error) {
-    console.error("Errore analisi:", error);
+  } catch (err) {
+    console.error("❌ Errore ANALISI:", err);
     res.status(500).json({ error: "Errore nel recupero delle analisi" });
   }
 });
+
 
 // =============================================================
 // ================= API IMBOTTIGLIAMENTI ======================
 // =============================================================
 app.get("/api/imbottigliamenti", async (req, res) => {
   try {
-    const query = `
+    const q = `
       SELECT i.*, l.codice AS lotto_codice
       FROM imbottigliamenti i
       JOIN lotti l ON i.lotto_id = l.id
       ORDER BY i.data_imbottigliamento DESC, i.id DESC
     `;
-    const result = await pool.query(query);
+    const result = await pool.query(q);
     res.json(result.rows);
-  } catch (error) {
-    console.error("Errore imbottigliamenti:", error);
+  } catch (err) {
+    console.error("❌ Errore IMBOTTIGLIAMENTI:", err);
     res.status(500).json({ error: "Errore nel recupero degli imbottigliamenti" });
   }
 });
 
+
 // =============================================================
 // ========================= API EVENTI ========================
 // =============================================================
-
 app.get("/api/eventi", async (req, res) => {
   try {
-    const query = `
+    const q = `
       SELECT e.*,
              v.codice AS vasca_codice,
              l.codice AS lotto_codice,
@@ -128,54 +133,73 @@ app.get("/api/eventi", async (req, res) => {
       LEFT JOIN imbottigliamenti i ON e.imbottigliamento_id = i.id
       ORDER BY e.data_evento DESC, e.id DESC
     `;
-    
-    const result = await pool.query(query);
+    const result = await pool.query(q);
     res.json(result.rows);
-  } catch (error) {
-    console.error("Errore eventi:", error);
-    res.status(500).json({ error: "Errore nel recupero degli eventi di cantina" });
+  } catch (err) {
+    console.error("❌ Errore EVENTI:", err);
+    res.status(500).json({ error: "Errore nel recupero degli eventi" });
   }
 });
+
 
 // =============================================================
 // ========================= API VIGNETI =======================
 // =============================================================
-
-// GET — tutti i vigneti
 app.get("/api/vigneti", async (req, res) => {
   try {
-    const result = await pool.query("SELECT * FROM vigneti ORDER BY id ASC");
+    const q = "SELECT * FROM vigneti ORDER BY id ASC";
+    const result = await pool.query(q);
     res.json(result.rows);
-  } catch (error) {
-    console.error("Errore vigneti:", error);
+  } catch (err) {
+    console.error("❌ Errore VIGNETI:", err);
     res.status(500).json({ error: "Errore nel recupero dei vigneti" });
   }
 });
 
+
 // =============================================================
 // ========================= API PARCELLE ======================
 // =============================================================
-
-// GET — tutte le parcelle
 app.get("/api/parcelle", async (req, res) => {
   try {
-    const query = `
+    const q = `
       SELECT p.*, v.nome AS vigneto_nome
       FROM parcelle p
       JOIN vigneti v ON p.vigneto_id = v.id
       ORDER BY p.id ASC
     `;
-    const result = await pool.query(query);
+    const result = await pool.query(q);
     res.json(result.rows);
-  } catch (error) {
-    console.error("Errore parcelle:", error);
+  } catch (err) {
+    console.error("❌ Errore PARCELLE:", err);
     res.status(500).json({ error: "Errore nel recupero delle parcelle" });
   }
 });
+
+
+// =============================================================
+// ====================== ⭐ API TRATTAMENTI ====================
+// =============================================================
+app.get("/api/trattamenti", async (req, res) => {
+  try {
+    const q = `
+      SELECT t.*, p.nome AS parcella_nome, p.vitigno
+      FROM trattamenti t
+      JOIN parcelle p ON t.parcella_id = p.id
+      ORDER BY t.data_trattamento DESC, t.id DESC
+    `;
+    const result = await pool.query(q);
+    res.json(result.rows);
+  } catch (err) {
+    console.error("❌ Errore TRATTAMENTI:", err);
+    res.status(500).json({ error: "Errore nel recupero dei trattamenti" });
+  }
+});
+
 
 // =============================================================
 // ========================= SERVER START ======================
 // =============================================================
 app.listen(PORT, () => {
-  console.log(`Server VineTrack avviato sulla porta ${PORT}`);
+  console.log(`🚀 Server VineTrack avviato sulla porta ${PORT}`);
 });
