@@ -1,27 +1,51 @@
+import { useEffect, useState } from "react";
 import ImbottigliamentoCard from "../components/ImbottigliamentoCard";
 
 function Imbottigliamenti() {
+  const [imbottigliamenti, setImbottigliamenti] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchImbottigliamenti() {
+      try {
+        const response = await fetch("http://localhost:5000/api/imbottigliamenti");
+        const data = await response.json();
+        setImbottigliamenti(data);
+      } catch (error) {
+        console.error("Errore caricamento imbottigliamenti:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchImbottigliamenti();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="page">
+        <h3>Caricamento imbottigliamenti...</h3>
+      </div>
+    );
+  }
+
   return (
     <div className="imb-page page">
       <h2>Imbottigliamenti</h2>
       <p>Storico delle operazioni di imbottigliamento</p>
 
       <div className="imb-list">
-        <ImbottigliamentoCard
-          lotto="L001"
-          data="2024-02-03"
-          bottiglie={1200}
-          formato="0.75 L"
-          codiceLotto="BT-2024-A"
-        />
-
-        <ImbottigliamentoCard
-          lotto="L002"
-          data="2023-11-22"
-          bottiglie={800}
-          formato="0.75 L"
-          codiceLotto="BT-2023-D"
-        />
+        {imbottigliamenti.map((imb) => (
+          <ImbottigliamentoCard
+            key={imb.id}
+            lotto={imb.lotto_codice}
+            data={imb.data_imbottigliamento}
+            bottiglie={imb.bottiglie}
+            formato={imb.formato}
+            codiceLotto={imb.codice_lotto}
+            note={imb.note}
+          />
+        ))}
       </div>
     </div>
   );
