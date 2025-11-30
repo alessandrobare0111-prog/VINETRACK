@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import Vasche from "./pages/Vasche";
 import Lotti from "./pages/Lotti";
 import Analisi from "./pages/Analisi";
+import Imbottigliamenti from "./pages/Imbottigliamenti";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -24,7 +25,7 @@ function App() {
             <Route path="/vasche" element={<Vasche />} />
             <Route path="/lotti" element={<Lotti />} />
             <Route path="/analisi" element={<Analisi />} />
-            <Route path="/imbottigliamenti" element={<div>Imbottigliamenti</div>} />
+            <Route path="/imbottigliamenti" element={<Imbottigliamenti />} />
           </Routes>
         </main>
       </div>
