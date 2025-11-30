@@ -6,40 +6,28 @@ function Sidebar() {
       <h3>VineTrack</h3>
 
       <nav>
-        <NavLink 
-          to="/" 
-          end
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
+        <NavLink to="/" end className={({ isActive }) => (isActive ? "active" : "")}>
           Dashboard
         </NavLink>
 
-        <NavLink 
-          to="/vasche" 
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
+        <NavLink to="/vasche" className={({ isActive }) => (isActive ? "active" : "")}>
           Vasche
         </NavLink>
 
-        <NavLink 
-          to="/lotti" 
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
+        <NavLink to="/lotti" className={({ isActive }) => (isActive ? "active" : "")}>
           Lotti
         </NavLink>
 
-        <NavLink 
-          to="/analisi" 
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
+        <NavLink to="/analisi" className={({ isActive }) => (isActive ? "active" : "")}>
           Analisi
         </NavLink>
 
-        <NavLink 
-          to="/imbottigliamenti" 
-          className={({ isActive }) => (isActive ? "active" : "")}
-        >
+        <NavLink to="/imbottigliamenti" className={({ isActive }) => (isActive ? "active" : "")}>
           Imbottigliamenti
+        </NavLink>
+
+        <NavLink to="/tracciabilita" className={({ isActive }) => (isActive ? "active" : "")}>
+          Tracciabilità
         </NavLink>
       </nav>
     </aside>
