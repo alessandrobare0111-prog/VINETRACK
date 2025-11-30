@@ -1,19 +1,20 @@
 import "./App.css";
+import Sidebar from "./components/Sidebar";
+import TopBar from "./components/TopBar";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
   return (
-    <div className="App">
-      <header className="header">
-        <h1>VineTrack</h1>
-        <p>Gestione completa della cantina — dal vigneto alla bottiglia.</p>
-      </header>
+    <div className="layout">
+      <Sidebar />
 
-      <main className="content">
-        <p>
-          Qui costruiremo dashboard, lotti, vasche, analisi, tracciabilità,
-          imbottigliamenti e tutto il resto del gestionale.
-        </p>
-      </main>
+      <div className="layout-main">
+        <TopBar />
+
+        <main className="layout-content">
+          <Dashboard />
+        </main>
+      </div>
     </div>
   );
 }
