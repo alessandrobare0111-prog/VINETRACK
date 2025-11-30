@@ -29,6 +29,10 @@ function Sidebar() {
         <NavLink to="/tracciabilita" className={({ isActive }) => (isActive ? "active" : "")}>
           Tracciabilità
         </NavLink>
+
+        <NavLink to="/mappa-cantina" className={({ isActive }) => (isActive ? "active" : "")}>
+          Mappa Cantina
+        </NavLink>
       </nav>
     </aside>
   );
