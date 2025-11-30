@@ -1,24 +1,55 @@
-.App {
-  padding: 2rem;
-}
-
-.header {
-  margin-bottom: 2rem;
-}
-
-.header h1 {
-  font-size: 2rem;
-  margin: 0;
-}
-
-.header p {
-  margin-top: 0.3rem;
-  color: #9ca3af;
-}
-
-.content {
-  padding: 1.5rem;
+/* Layout */
+.layout {
+  display: flex;
+  min-height: 100vh;
   background: #020617;
-  border-radius: 0.8rem;
-  border: 1px solid #1f2937;
+  color: #e5e7eb;
+}
+
+.layout-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.layout-content {
+  padding: 1.5rem;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 220px;
+  padding: 1rem;
+  background: #0f172a;
+  border-right: 1px solid #1f2937;
+}
+
+.sidebar h3 {
+  margin-bottom: 1.5rem;
+}
+
+.sidebar nav a {
+  display: block;
+  color: #9ca3af;
+  text-decoration: none;
+  margin-bottom: .5rem;
+  padding: .4rem;
+  border-radius: .5rem;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+  background: #1e293b;
+  color: #fff;
+}
+
+/* TopBar */
+.topbar {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #1f2937;
+}
+
+/* Dashboard */
+.dashboard h2 {
+  margin-bottom: 1rem;
 }
