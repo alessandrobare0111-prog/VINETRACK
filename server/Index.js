@@ -67,7 +67,7 @@ app.get("/api/lotti", async (req, res) => {
   }
 });
 
-// --- API ANALISI (lettura analisi, FASE 3 COMPLETA) ---
+// --- API ANALISI (lettura analisi) ---
 app.get("/api/analisi", async (req, res) => {
   try {
     const query = `
@@ -81,6 +81,23 @@ app.get("/api/analisi", async (req, res) => {
   } catch (error) {
     console.error("Errore analisi:", error);
     res.status(500).json({ error: "Errore nel recupero delle analisi" });
+  }
+});
+
+// --- API IMBOTTIGLIAMENTI (lettura imbottigliamenti) ---
+app.get("/api/imbottigliamenti", async (req, res) => {
+  try {
+    const query = `
+      SELECT i.*, l.codice AS lotto_codice
+      FROM imbottigliamenti i
+      JOIN lotti l ON i.lotto_id = l.id
+      ORDER BY i.data_imbottigliamento DESC, i.id DESC
+    `;
+    const result = await pool.query(query);
+    res.json(result.rows);
+  } catch (error) {
+    console.error("Errore imbottigliamenti:", error);
+    res.status(500).json({ error: "Errore nel recupero degli imbottigliamenti" });
   }
 });
 
