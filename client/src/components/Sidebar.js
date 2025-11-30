@@ -14,6 +14,7 @@ function Sidebar() {
         <NavLink to="/tracciabilita">Tracciabilità</NavLink>
         <NavLink to="/mappa-cantina">Mappa Cantina</NavLink>
         <NavLink to="/mappa-vigneto">Mappa Vigneto</NavLink>
+        <NavLink to="/trattamenti">Trattamenti</NavLink>
       </nav>
     </aside>
   );
