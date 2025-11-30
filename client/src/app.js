@@ -3,6 +3,8 @@ import Sidebar from "./components/Sidebar";
 import TopBar from "./components/TopBar";
 import Dashboard from "./pages/Dashboard";
 import Vasche from "./pages/Vasche";
+import Lotti from "./pages/Lotti";
+
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -17,9 +19,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/vasche" element={<Vasche />} />
-
-            {/* In arrivo */}
-            <Route path="/lotti" element={<div>Lotti</div>} />
+            <Route path="/lotti" element={<Lotti />} />
             <Route path="/analisi" element={<div>Analisi</div>} />
             <Route path="/imbottigliamenti" element={<div>Imbottigliamenti</div>} />
           </Routes>
