@@ -32,9 +32,9 @@
   display: block;
   color: #9ca3af;
   text-decoration: none;
-  margin-bottom: .5rem;
-  padding: .4rem;
-  border-radius: .5rem;
+  margin-bottom: 0.5rem;
+  padding: 0.4rem;
+  border-radius: 0.5rem;
 }
 
 .sidebar nav a:hover,
@@ -49,7 +49,44 @@
   border-bottom: 1px solid #1f2937;
 }
 
+.topbar h1 {
+  margin: 0;
+}
+
+.topbar p {
+  margin: 0.2rem 0 0;
+  font-size: 0.9rem;
+  color: #9ca3af;
+}
+
 /* Dashboard */
 .dashboard h2 {
   margin-bottom: 1rem;
+}
+
+/* Vasche */
+.vasche-page {
+  margin-top: 1rem;
+}
+
+.vasche-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+.vasca-card {
+  padding: 1rem;
+  background: #0f172a;
+  border: 1px solid #1f2937;
+  border-radius: 0.8rem;
+}
+
+.vasca-card h3 {
+  margin-bottom: 0.5rem;
+}
+
+.vasca-card p {
+  margin: 0.2rem 0;
+  color: #9ca3af;
 }
