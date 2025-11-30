@@ -2,6 +2,8 @@ import "./App.css";
 import Sidebar from "./components/Sidebar";
 import TopBar from "./components/TopBar";
 import Dashboard from "./pages/Dashboard";
+import Vasche from "./pages/Vasche";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   return (
@@ -12,7 +14,15 @@ function App() {
         <TopBar />
 
         <main className="layout-content">
-          <Dashboard />
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/vasche" element={<Vasche />} />
+
+            {/* In arrivo */}
+            <Route path="/lotti" element={<div>Lotti</div>} />
+            <Route path="/analisi" element={<div>Analisi</div>} />
+            <Route path="/imbottigliamenti" element={<div>Imbottigliamenti</div>} />
+          </Routes>
         </main>
       </div>
     </div>
