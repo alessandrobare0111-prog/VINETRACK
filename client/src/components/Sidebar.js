@@ -15,6 +15,7 @@ function Sidebar() {
         <NavLink to="/mappa-cantina">Mappa Cantina</NavLink>
         <NavLink to="/mappa-vigneto">Mappa Vigneto</NavLink>
         <NavLink to="/trattamenti">Trattamenti</NavLink>
+        <NavLink to="/meteo">Meteo</NavLink>
       </nav>
     </aside>
   );
