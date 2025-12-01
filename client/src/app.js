@@ -12,6 +12,7 @@ import Tracciabilita from "./pages/Tracciabilita";
 import MappaCantina from "./pages/MappaCantina";
 import MappaVigneto from "./pages/MappaVigneto";
 import Trattamenti from "./pages/Trattamenti";
+import Meteo from "./pages/Meteo";
 
 import { Routes, Route } from "react-router-dom";
 
@@ -34,6 +35,7 @@ function App() {
             <Route path="/mappa-cantina" element={<MappaCantina />} />
             <Route path="/mappa-vigneto" element={<MappaVigneto />} />
             <Route path="/trattamenti" element={<Trattamenti />} />
+            <Route path="/meteo" element={<Meteo />} />
           </Routes>
         </main>
       </div>
