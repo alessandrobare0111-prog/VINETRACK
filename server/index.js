@@ -156,7 +156,7 @@ app.get("/api/parcelle", async (req, res) => {
 });
 
 // =============================================================
-// ========================= API TRATTAMENTI ===================
+// ======================= API TRATTAMENTI =====================
 // =============================================================
 app.get("/api/trattamenti", async (req, res) => {
   try {
@@ -174,10 +174,10 @@ app.get("/api/trattamenti", async (req, res) => {
 });
 
 // =============================================================
-// =========================== ⭐ API METEO ======================
+// ============================ API METEO =======================
 // =============================================================
 
-// GET — tutti i dati meteo
+// GET meteo storico
 app.get("/api/meteo", async (req, res) => {
   try {
     const q = `
@@ -189,11 +189,11 @@ app.get("/api/meteo", async (req, res) => {
     const result = await pool.query(q);
     res.json(result.rows);
   } catch {
-    res.status(500).json({ error: "Errore nel recupero del meteo" });
+    res.status(500).json({ error: "Errore recupero meteo" });
   }
 });
 
-// POST — aggiungi meteodata per un vigneto
+// Aggiungi dati meteo
 app.post("/api/meteo/add", async (req, res) => {
   const {
     vigneto_id,
@@ -225,12 +225,11 @@ app.post("/api/meteo/add", async (req, res) => {
 
     res.json({ status: "ok" });
   } catch (err) {
-    console.error("Errore inserimento meteo:", err);
     res.status(500).json({ error: "Errore salvataggio meteo" });
   }
 });
 
-// GET — meteodata da OpenWeather per un vigneto
+// Meteo live
 app.get("/api/meteo/live/:vigneto_id", async (req, res) => {
   const { vigneto_id } = req.params;
 
@@ -253,13 +252,12 @@ app.get("/api/meteo/live/:vigneto_id", async (req, res) => {
 
     res.json(data);
   } catch (err) {
-    console.error("Errore meteo live:", err);
     res.status(500).json({ error: "Errore recupero meteo live" });
   }
 });
 
 // =============================================================
-// ========================= AVVIO SERVER ======================
+// ========================= AVVIO SERVER =======================
 // =============================================================
 app.listen(PORT, () => {
   console.log(`🚀 VineTrack server avviato sulla porta ${PORT}`);
