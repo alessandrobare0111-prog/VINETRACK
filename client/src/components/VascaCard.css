@@ -1,0 +1,36 @@
+.vasca-card {
+  background: #101726;
+  border: 1px solid #1f2a40;
+  padding: 16px;
+  border-radius: 12px;
+  margin-bottom: 16px;
+  color: #e8e8e8;
+  transition: 0.2s;
+}
+
+.vasca-card:hover {
+  background: #1a2236;
+  transform: scale(1.01);
+}
+
+.stato {
+  margin-top: 8px;
+  padding: 6px 10px;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+.stato-fermentazione {
+  background-color: #ffb34755;
+  color: #ffb347;
+}
+
+.stato-stoccaggio {
+  background-color: #6ccf7b55;
+  color: #6ccf7b;
+}
+
+.stato-vuota {
+  background-color: #e74c3c55;
+  color: #e74c3c;
+}
