@@ -1,50 +1,29 @@
-import { useEffect, useState } from "react";
+// /src/pages/Lotti.jsx
+
+import React from "react";
+import lotti from "../mock/lotti";
+import vasche from "../mock/vasche";
 import LottoCard from "../components/LottoCard";
 
-function Lotti() {
-  const [lotti, setLotti] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchLotti() {
-      try {
-        const response = await fetch("http://localhost:5000/api/lotti");
-        const data = await response.json();
-        setLotti(data);
-      } catch (error) {
-        console.error("Errore caricamento lotti:", error);
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    fetchLotti();
-  }, []);
-
-  if (loading) {
-    return <div className="page"><h3>Caricamento lotti...</h3></div>;
-  }
-
+export default function Lotti() {
   return (
-    <div className="lotti-page page">
+    <div className="page">
       <h2>Lotti</h2>
-      <p>Gestione dei lotti di vino</p>
+      <p>Gestione dei lotti vinicoli</p>
 
-      <div className="lotti-list">
-        {lotti.map((lotto) => (
-          <LottoCard
-            key={lotto.id}
-            id={lotto.codice}
-            annata={lotto.annata}
-            vitigno={lotto.vitigno}
-            stato={lotto.stato}
-            volume={lotto.volume}
-            vasca={lotto.vasca_codice}
-          />
-        ))}
+      <div className="lotti-grid">
+        {lotti.map(lotto => {
+          const vasca = vasche.find(v => v.id === lotto.vascaId);
+
+          return (
+            <LottoCard
+              key={lotto.id}
+              lotto={lotto}
+              vasca={vasca}
+            />
+          );
+        })}
       </div>
     </div>
   );
 }
-
-export default Lotti;
