@@ -7,6 +7,7 @@ function Sidebar() {
 
       <nav>
         <NavLink to="/" end>Dashboard</NavLink>
+        <NavLink to="/travaso">Travaso</NavLink>
         <NavLink to="/vasche">Vasche</NavLink>
         <NavLink to="/lotti">Lotti</NavLink>
         <NavLink to="/analisi">Analisi</NavLink>
