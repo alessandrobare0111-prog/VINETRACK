@@ -1,31 +1,18 @@
-// /src/components/LottoCard.jsx
-import React from "react";
+import "./LottoCard.css";
 
-export default function LottoCard({ lotto, vasca }) {
-  const statoColor = {
-    fermentazione: "#ff4d4f",
-    maturazione: "#52c41a",
-    pronto: "#1890ff",
-    vuoto: "#8c8c8c",
-  };
-
+export default function LottoCard({ codice, vino, annata, stato, volume }) {
   return (
     <div className="lotto-card">
-      <h3>{lotto.codice}</h3>
+      <div className="lotto-header">
+        <h3>{codice}</h3>
+        <span className={`stato ${stato.toLowerCase()}`}>{stato}</span>
+      </div>
 
-      <p><strong>Varietà:</strong> {lotto.varieta}</p>
-      <p><strong>Volume:</strong> {lotto.volume} L</p>
-
-      <p>
-        <strong>Stato:</strong>{" "}
-        <span style={{ color: statoColor[lotto.stato] }}>
-          {lotto.stato}
-        </span>
-      </p>
-
-      <p><strong>Vasca:</strong> {vasca ? vasca.nome : "N/A"}</p>
-
-      <p><strong>Creato il:</strong> {lotto.dataCreazione}</p>
+      <div className="lotto-body">
+        <p><strong>Vino:</strong> {vino}</p>
+        <p><strong>Annata:</strong> {annata}</p>
+        <p><strong>Volume:</strong> {volume} L</p>
+      </div>
     </div>
   );
 }
