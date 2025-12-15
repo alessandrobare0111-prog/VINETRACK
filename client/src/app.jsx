@@ -4,6 +4,7 @@ import TopBar from "./components/TopBar";
 
 // Pagine
 import Dashboard from "./pages/Dashboard";
+import Travaso from "./pages/Travaso";
 import Vasche from "./pages/Vasche";
 import Lotti from "./pages/Lotti";
 import Analisi from "./pages/Analisi";
@@ -28,6 +29,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/vasche" element={<Vasche />} />
+            <Route path="/travaso" element={<Travaso />} />
             <Route path="/lotti" element={<Lotti />} />
             <Route path="/analisi" element={<Analisi />} />
             <Route path="/imbottigliamenti" element={<Imbottigliamenti />} />
