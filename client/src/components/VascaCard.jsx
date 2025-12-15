@@ -1,31 +1,22 @@
-// /src/components/VascaCard.jsx
-import React from "react";
-
-function VascaCard({ vasca }) {
-
-  const percent = Math.round((vasca.contenuto / vasca.capacita) * 100);
-
-  const statoColor = {
-    fermentazione: "#ff4d4f",
-    maturazione: "#52c41a",
-    vuota: "#8c8c8c",
-  };
+export default function VascaCard({ vasca }) {
+  const percent = Math.round((vasca.volume / vasca.capacita) * 100);
 
   return (
     <div className="vasca-card">
       <h3>{vasca.nome}</h3>
+      <p>Lotto: {vasca.lotto}</p>
+      <p>
+        Volume: {vasca.volume} hl / {vasca.capacita} hl
+      </p>
 
-      <p><strong>Stato:</strong> <span style={{ color: statoColor[vasca.stato] }}>{vasca.stato}</span></p>
-
-      <p><strong>Temperatura:</strong> {vasca.temperatura}°C</p>
-
-      <div className="progress-bar">
-        <div className="progress" style={{ width: `${percent}%` }}></div>
+      <div className="progress">
+        <div
+          className="progress-bar"
+          style={{ width: `${percent}%` }}
+        ></div>
       </div>
 
-      <p>{vasca.contenuto} L / {vasca.capacita} L </p>
+      <button>Travaso</button>
     </div>
   );
 }
-
-export default VascaCard;
