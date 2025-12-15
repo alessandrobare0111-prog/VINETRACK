@@ -1,0 +1,55 @@
+.lotto-card {
+  background: linear-gradient(180deg, #0b1220, #050914);
+  border: 1px solid #1f2937;
+  border-radius: 14px;
+  padding: 16px;
+  color: #e5e7eb;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.lotto-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+
+.lotto-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.lotto-header h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.stato {
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.stato.attivo {
+  background: rgba(34,197,94,0.15);
+  color: #22c55e;
+}
+
+.stato.affinamento {
+  background: rgba(59,130,246,0.15);
+  color: #3b82f6;
+}
+
+.stato.chiuso {
+  background: rgba(239,68,68,0.15);
+  color: #ef4444;
+}
+
+.lotto-body p {
+  margin: 4px 0;
+  font-size: 0.9rem;
+  color: #cbd5f5;
+}
